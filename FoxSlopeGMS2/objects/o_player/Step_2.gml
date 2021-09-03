@@ -22,17 +22,18 @@ switch (state) {
 	} break;
 }
 
-if (sprite_index != anim_roll) {
+if (sprite_index != anim_roll) && (sprite_index != anim_jog) && (sprite_index != anim_run)
+&& (sprite_index != anim_rise) && (sprite_index != anim_fall) {
 	angle_tail = 0;
 }
 else {
-	if (x != xprevious) || (y != yprevious) {
+	if (round(x) != round(xprevious)) || (round(y) != round(yprevious)) {
 		var _na = point_direction(x,y,xprevious,yprevious);
 		angle_tail = _na;
 	}
 }
 
-if (sprite_index == anim_jog) || (sprite_index == anim_roll) {
+if (sprite_index == anim_jog) || (sprite_index == anim_roll) || (sprite_index == anim_run) {
 	current_frame += (sprite_get_speed(sprite_index) / room_speed) * ((abs(hsp)+1) / 3);
 }
 else {

@@ -26,7 +26,7 @@ switch (state) {
 			}
 		}
 		
-		if (_kDown && grounded && abs(hsp) > 1) rolling = true;
+		if (_kDown && grounded && abs(hsp) > 1.5) rolling = true;
 		
 		skidding = false;
 		if (_kLeft) {
@@ -61,7 +61,8 @@ switch (state) {
 		}
 		else {
 			if (controlLock <= 0) {
-				if (rolling) hsp = approach(hsp,0,dec/4);
+				if (!grounded) hsp = approach(hsp,0,dec/2);
+				else if (rolling) hsp = approach(hsp,0,dec/4);
 				else hsp = approach(hsp,0,dec);
 			}
 		}
@@ -77,7 +78,7 @@ switch (state) {
 			if (abs(_disp) > 0) slipping = true;
 		}
 		
-		if (rolling) hsp = clamp(hsp,-lmt,lmt);
+		if (grounded) hsp = clamp(hsp,-lmt,lmt);
 		else hsp = clamp(hsp,-8,8);
 		
 		if (!grounded) vsp += grv;
@@ -89,7 +90,8 @@ switch (state) {
 		
 		if (_kJump) {
 			if (grounded) {
-				vsp = -jmp;
+				hsp += jmp * -sin(degtorad(angle));
+				vsp = -jmp * cos(degtorad(angle));
 				grounded = false;
 				rolling = false;
 				jumping = true;
@@ -113,8 +115,8 @@ switch (state) {
 	case PLAYER.PATH: {
 		if (path_ended) {
 			state = PLAYER.FREE;
-			hsp = lmt * cos(degtorad(direction));
-			vsp = lmt * -sin(degtorad(direction));
+			hsp = spd * cos(degtorad(direction));
+			vsp = spd * -sin(degtorad(direction));
 			controlLock = controlLockMax;
 			rolling = true;
 			path_ended = false;

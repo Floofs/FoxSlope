@@ -138,3 +138,14 @@ y = clamp(y,0,room_height-(height/zoom));
 
 camera_set_view_size(camera,width/zoom,height/zoom);
 camera_set_view_pos(camera,round(x),round(y)+(shaky*irandom_range(-2,2)));
+
+//Move the Background Layers
+if (layer_exists(layer_bg1)) {
+	layer_y(layer_bg1,camera_get_view_y(view_camera[0])+G_HEIGHT-64);
+}
+if (layer_exists(layer_bg2)) {
+	layer_y(layer_bg2,camera_get_view_y(view_camera[0])+G_HEIGHT-128);
+}
+if (layer_exists(layer_bg3)) {
+	layer_y(layer_bg3,camera_get_view_y(view_camera[0])+G_HEIGHT-192);
+}

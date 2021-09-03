@@ -5,12 +5,13 @@ hsp = 0;
 vsp = 0;
 
 path_ended = false;
+spd = 0;
 
 acc = 0.15;
 dec = 0.2;
-run = 3;
+run = 4;
 
-jmp = 5.5;
+jmp = 5.75;
 grv = 0.25;
 lmt = 10;
 
@@ -30,6 +31,7 @@ jumpsMax = 1;
 jumps = jumpsMax;
 
 layer_solid = layer_get_id("Solid");
+layer_jumpthru = layer_get_id("Jumpthru");
 
 current_frame = 0;
 angle = 0;
@@ -45,13 +47,21 @@ anim_fall = s_fox_fall;
 anim_roll = s_fox_roll;
 
 function set_main_mask() {
+	/*
 	if (rolling) || (jumping) mask_index = m_player_roll;
 	else if (grounded) mask_index = m_player;
+	*/
+	
+	mask_index = m_player;
 }
 
 function set_tile_mask() {
+	/*
 	if (rolling) || (jumping) mask_index = m_player_roll_slope;
 	else if (grounded) mask_index = m_player_slope;
+	*/
+	
+	mask_index = m_player_slope;
 }
 
 function store_subpixels() {
@@ -67,7 +77,8 @@ function tile_collision() {
 	store_subpixels();
 	set_tile_mask();
 	var _lastGrounded = grounded;
-	grounded = tile_meeting_precise(x,bbox_bottom+2,layer_solid);
+	grounded = tile_meeting_precise(x,bbox_bottom+2,layer_solid)
+	|| (tile_meeting_precise(x,bbox_bottom+2,layer_jumpthru) && !tile_meeting_precise(x,bbox_bottom+1,layer_jumpthru) && vsp >= 0);
 	
 	if (grounded) {
 		angle = get_tile_floor_slope(x,bbox_bottom,layer_solid);
@@ -88,8 +99,11 @@ function tile_collision() {
 		}
 		
 		//This statement should let us fly up walls
+		var _checkLeft = tile_meeting(bbox_left+hsp,bbox_top,layer_solid);
+		var _checkRight = tile_meeting(bbox_right+hsp,bbox_top,layer_solid);
+		
 		if (grounded) && (abs(hsp) > run) && (abs(angle) > 45) && (sign(hsp) == sign(angle))
-		&& (tile_meeting(bbox_left+hsp,bbox_top,layer_solid) == 1 || tile_meeting(bbox_right+hsp,bbox_top,layer_solid) == 1) {
+		&& (_checkLeft == 1 || _checkRight == 1) {
 			vsp = -abs(hsp);
 			y_sub = -abs(x_sub);
 			//hsp = 0;
@@ -115,8 +129,10 @@ function tile_collision() {
 	
 	//Vertical Collision
 	var _lastvsp = 0;
-	if (tile_meeting_precise(x,y+vsp,layer_solid)) {
-		while (!tile_meeting_precise(x,y+sign(vsp),layer_solid)) {
+	if (tile_meeting_precise(x,y+vsp,layer_solid))
+	|| (tile_meeting_precise(x,y+vsp,layer_jumpthru) && !tile_meeting_precise(x,y,layer_jumpthru) && vsp >= 0) {
+		while (!tile_meeting_precise(x,y+sign(vsp),layer_solid)
+		&& !tile_meeting_precise(x,y+sign(vsp),layer_jumpthru)) {
 			y += sign(vsp);	
 		}
 		_lastvsp = abs(vsp)+abs(y_sub);
@@ -127,7 +143,8 @@ function tile_collision() {
 	
 	set_main_mask();
 	
-	grounded = tile_meeting_precise(x,y+1,layer_solid);
+	grounded = tile_meeting_precise(x,y+1,layer_solid)
+	|| (tile_meeting_precise(x,y+1,layer_jumpthru) && !tile_meeting_precise(x,y,layer_jumpthru) && vsp >= 0);
 	//Make the player slip when they land on slopes
 	if (grounded) && (!_lastGrounded) {
 		angle = get_tile_floor_slope(x,bbox_bottom,layer_solid);

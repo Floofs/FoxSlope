@@ -1,0 +1,1 @@
+spd = (irandom(5)+1)*choose(-1,1);

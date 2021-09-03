@@ -22,6 +22,10 @@ shaky = false;
 
 alarm[0] = 1;
 
+layer_bg1 = layer_get_id("BG1");
+layer_bg2 = layer_get_id("BG2");
+layer_bg3 = layer_get_id("BG3");
+
 enum CAMERA_STATES {
 	tiled, //acts like follow, but tiles like MegaMan
 	tiled_v, //tiled, but follows horizontally
