@@ -31,6 +31,7 @@
     {"id":{"name":"s_fox_fall","path":"sprites/s_fox_fall/s_fox_fall.yy",},"order":8,},
     {"id":{"name":"s_fox_idle","path":"sprites/s_fox_idle/s_fox_idle.yy",},"order":0,},
     {"id":{"name":"s_fox_shoot_air","path":"sprites/s_fox_shoot_air/s_fox_shoot_air.yy",},"order":5,},
+    {"id":{"name":"rm_dummy","path":"rooms/rm_dummy/rm_dummy.yy",},"order":2,},
     {"id":{"name":"s_fox_tail_down","path":"sprites/s_fox_tail_down/s_fox_tail_down.yy",},"order":2,},
     {"id":{"name":"MACROS","path":"scripts/MACROS/MACROS.yy",},"order":1,},
     {"id":{"name":"s_star","path":"sprites/s_star/s_star.yy",},"order":1,},
@@ -85,6 +86,7 @@
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
     {"roomId":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
+    {"roomId":{"name":"rm_dummy","path":"rooms/rm_dummy/rm_dummy.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Sprites.yy","order":1,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},

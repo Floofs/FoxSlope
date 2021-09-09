@@ -5,7 +5,7 @@ xTo = 0;
 yTo = 0;
 xMin = 0;
 yMin = 0;
-xMax = room_width-(TILE_SIZE*3);
+xMax = room_width-round(TILE_SIZE*3.25);
 yMax = room_height;
 
 zoomTo = 1;

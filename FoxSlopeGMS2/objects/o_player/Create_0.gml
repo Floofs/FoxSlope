@@ -102,7 +102,7 @@ function tile_collision() {
 		var _checkLeft = tile_meeting(bbox_left+hsp,bbox_top,layer_solid);
 		var _checkRight = tile_meeting(bbox_right+hsp,bbox_top,layer_solid);
 		
-		if (grounded) && (abs(hsp) > run) && (abs(angle) > 45) && (sign(hsp) == sign(angle))
+		if (grounded) && (abs(hsp+x_sub) >= 2.5) && (abs(angle) > 45) && (sign(hsp) == sign(angle))
 		&& (_checkLeft == 1 || _checkRight == 1) {
 			vsp = -abs(hsp);
 			y_sub = -abs(x_sub);
