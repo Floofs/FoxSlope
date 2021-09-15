@@ -61,7 +61,7 @@ switch (state) {
 		}
 		else {
 			if (controlLock <= 0) {
-				if (!grounded) hsp = approach(hsp,0,dec/2);
+				if (!grounded) { } //do nothing
 				else if (rolling) hsp = approach(hsp,0,dec/4);
 				else hsp = approach(hsp,0,dec);
 			}
