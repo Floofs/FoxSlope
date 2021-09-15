@@ -11,4 +11,4 @@ global.p_y = -1;
 global.max_hp = 20;
 
 resize_window(scale);
-room_goto(rm_test);
+room_goto(rm_dummy);
