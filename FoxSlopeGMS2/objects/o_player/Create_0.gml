@@ -99,13 +99,14 @@ function tile_collision() {
 		}
 		
 		//This statement should let us fly up walls
-		var _checkLeft = tile_meeting(bbox_left+hsp,bbox_top,layer_solid);
-		var _checkRight = tile_meeting(bbox_right+hsp,bbox_top,layer_solid);
-		var _checkDownL = tile_meeting(bbox_left+hsp,bbox_bottom+(TILE_SIZE*2),layer_solid);
-		var _checkDownR = tile_meeting(bbox_right+hsp,bbox_bottom+(TILE_SIZE*2),layer_solid);
+		var _check = tile_meeting(x+hsp,bbox_top,layer_solid);
+		//var _checkLeft = tile_meeting(bbox_left+hsp,bbox_top,layer_solid);
+		//var _checkRight = tile_meeting(bbox_right+hsp,bbox_top,layer_solid);
+		//var _checkDownL = tile_meeting(bbox_left+hsp,bbox_bottom+(TILE_SIZE*2),layer_solid);
+		//var _checkDownR = tile_meeting(bbox_right+hsp,bbox_bottom+(TILE_SIZE*2),layer_solid);
 		
 		if (grounded) && (abs(hsp+x_sub) >= 2.5) && (abs(angle) >= 45) && (sign(hsp) == sign(angle))
-		&& (_checkLeft == 1 || _checkRight == 1 || _checkDownL == 1 || _checkDownR == 1) {
+		&& (_check) {
 			y_sub = -abs(x_sub)-abs(hsp);
 			//hsp = 0;
 			//x_sub = 0;
